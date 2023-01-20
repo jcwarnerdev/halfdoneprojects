@@ -29,7 +29,7 @@
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link {% block add_blogs_active %} {% endblock add_blogs_active %}" href="/add_blogs/">Add Blogs</a>
+                <a class="nav-link {% block add_blog_active %} {% endblock add_blog_active %}" href="/blog/add_blog/">Add Blog Post</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="#">Hello {{request.user}}</a>

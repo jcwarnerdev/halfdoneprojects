@@ -4,7 +4,7 @@ from django.contrib.auth  import authenticate,  login, logout
 from .models import *
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm #, BlogPostForm
-from blog.forms import BlogPostForm #ProfileForm, 
+# from blog.forms import BlogPostForm #ProfileForm, 
 from django.views.generic import UpdateView
 from django.contrib import messages
 import logging
@@ -12,18 +12,19 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def user_profile(request, myid):
-    post = BlogPost.objects.filter(id=myid)
-    return render(request, "user_profile.html", {'post':post})
+# def user_profile(request, myid):
+#     post = BlogPost.objects.filter(id=myid)
+#     return render(request, "user_profile.html", {'post':post})
 
-def Profile(request):
+def UserProfile(request):
     return render(request, "profile.html")
 
 def edit_profile(request):
     try:
         profile = request.user.profile
     except Profile.DoesNotExist:
-        profile = Profile(user=request.user)
+        # profile = Profile(user=request.user)
+        Profile.objects.create(user=request.user)
     if request.method=="POST":
         form = ProfileForm(data=request.POST, files=request.FILES, instance=profile)
         if form.is_valid():
@@ -52,6 +53,7 @@ def Register(request):
         user.first_name = first_name
         user.last_name = last_name
         user.save()
+        Profile.objects.create(user=user)
         return render(request, 'login.html')   
     return render(request, "register.html")
 
@@ -61,14 +63,15 @@ def Login(request):
         password = request.POST['password']
         
         logger.debug(f'{username} is trying to login')
-        user = authenticate(username=username, password=password)
-        
+        user = authenticate(request, username=username, password=password)
+        logger.debug(f'user info {user}')
+
         if user is not None:
             login(request, user)
             messages.success(request, "Successfully Logged In")
             logger.debug(f'{user} successfully logged in')
-            #return redirect("/blog")
-            return redirect("/")
+            return redirect("/blog/add_blog/")
+            # return redirect("/")
             #return render(request, "login.html")
         else:
             messages.error(request, "Invalid Credentials")
