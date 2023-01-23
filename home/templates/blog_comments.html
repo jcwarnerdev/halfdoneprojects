@@ -31,7 +31,7 @@ float: right;
       <br>
       <img src="/media/{{post.image}}" alt="" height="250px" width="500px">
       <br>
-      <p>{{post.content}}.</p>
+      <p>{{post.content.html|safe}}.</p>
       <hr>
       {% if user.is_authenticated %}
       <div class="container">

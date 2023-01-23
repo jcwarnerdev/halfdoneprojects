@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
-from .models import *
+from .models import QuillPost, Comment
 from django.contrib.auth.decorators import login_required
-from .forms import BlogPostForm #ProfileForm, BlogPostForm
+from .forms import QuillPostForm # BlogPostForm #ProfileForm, BlogPostForm
 from home.forms import ProfileForm #, BlogPostForm
 from django.views.generic import UpdateView
 from django.contrib import messages
@@ -12,15 +12,15 @@ import logging
 logger = logging.getLogger(__name__)
 
 def blogs(request):
-    posts = BlogPost.objects.all()
-    posts = BlogPost.objects.filter().order_by('-dateTime')
+    posts = QuillPost.objects.all() # BlogPost.objects.all()
+    posts = QuillPost.objects.filter().order_by('-dateTime')# BlogPost.objects.filter().order_by('-dateTime')
     if not posts:
         return render(request, "blog.html", {'posts':'testno posts'})
     else:
         return render(request, "blog.html", {'posts':posts})
 
 def blogs_comments(request, slug):
-    post = BlogPost.objects.filter(slug=slug).first()
+    post = QuillPost.objects.filter(slug=slug).first() # BlogPost.objects.filter(slug=slug).first()
     comments = Comment.objects.filter(blog=post)
     if request.method=="POST":
         user = request.user
@@ -31,7 +31,7 @@ def blogs_comments(request, slug):
     return render(request, "blog_comments.html", {'post':post, 'comments':comments})
 
 def Delete_Blog_Post(request, slug):
-    posts = BlogPost.objects.get(slug=slug)
+    posts = QuillPost.objects.get(slug=slug) # BlogPost.objects.get(slug=slug)
     if request.method == "POST":
         posts.delete()
         return redirect('/')
@@ -40,7 +40,7 @@ def Delete_Blog_Post(request, slug):
 def search(request):
     if request.method == "POST":
         searched = request.POST['searched']
-        blogs = BlogPost.objects.filter(title__contains=searched)
+        blogs = QuillPost.objects.filter(title__contains=searched) # BlogPost.objects.filter(title__contains=searched)
         return render(request, "search.html", {'searched':searched, 'blogs':blogs})
     else:
         return render(request, "search.html", {})
@@ -48,7 +48,7 @@ def search(request):
 @login_required(login_url = '/login')
 def add_blog(request):
     if request.method=="POST":
-        form = BlogPostForm(data=request.POST, files=request.FILES)
+        form = QuillPostForm(data=request.POST, files=request.FILES) # BlogPostForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             blogpost = form.save(commit=False)
             blogpost.author = request.user
@@ -57,11 +57,11 @@ def add_blog(request):
             alert = True
             return render(request, "add_blog.html",{'obj':obj, 'alert':alert})
     else:
-        form=BlogPostForm()
+        form= QuillPostForm # BlogPostForm()
     return render(request, "add_blog.html", {'form':form})
 
 class UpdatePostView(UpdateView):
-    model = BlogPost
+    model = QuillPost # BlogPost
     template_name = 'edit_blog_post.html'
     fields = ['title', 'slug', 'content', 'image']
 
