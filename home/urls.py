@@ -32,3 +32,5 @@ urlpatterns = [
 
     path("", home_views.Home),
 ]
+
+# https://docs.djangoproject.com/en/dev/howto/deployment/wsgi/modwsgi/#serving-files

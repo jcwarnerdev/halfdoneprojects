@@ -6,18 +6,18 @@ from django_quill.fields import QuillField
 # Create your models here.
 
 class QuillPost(models.Model):
-    title=models.CharField(max_length=255)
-    author= models.ForeignKey(User, on_delete=models.CASCADE)
-    slug=models.CharField(max_length=130)
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    slug = models.CharField(max_length=130)
     content = QuillField()
     image = models.ImageField(upload_to="blog_pics", blank=True, null=True)
-    dateTime=models.DateTimeField(auto_now_add=True)
+    dateTime = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.author) +  " Blog Title: " + self.title
     
     def get_absolute_url(self):
-        return reverse('blog')
+        return f"/blog/blog/{self.slug}"
 
 
 # class BlogPost(models.Model):

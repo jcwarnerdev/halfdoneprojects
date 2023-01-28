@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- django-quill-editor Media -->
-    {% include 'django_quill/media.html' %}
+    {% comment %} {% include 'django_quill/media.html' %} {% endcomment %}
+    {% block head %} {% endblock %}
 
   <title> {% block title %} {% endblock %} </title> 
 
@@ -38,7 +39,7 @@
                 <a class="nav-link active" href="#">Hello {{request.user}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {% block add_blog_active %} {% endblock add_blog_active %}" href="/blog/add_blog/">Add Blog Post</a>
+                <a class="nav-link {% block add_blog_active %} {% endblock add_blog_active %}" href="/blog/add_post/">Add Blog Post</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link {% block profileactive %} {% endblock profileactive %}" href="/profile/">Profile</a>

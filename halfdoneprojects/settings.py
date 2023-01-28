@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_random_secret_key() #os.getenv('DJANGO_SECRET_KEY') #'django-insecure-j36vlwjw38htny4+sjj7nnqp&m!^u75bmy=(x2d1_b(u84hrm7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '170.187.148.159', 'www.halfdoneprojects.com', 'chickendoor.halfdoneprojects.com', 'halfdoneprojects.com']
 

@@ -24,6 +24,8 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('', include('home.urls')),
 ]
+
+# https://docs.djangoproject.com/en/dev/howto/deployment/wsgi/modwsgi/#serving-files
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

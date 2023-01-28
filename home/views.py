@@ -70,7 +70,7 @@ def Login(request):
             login(request, user)
             messages.success(request, "Successfully Logged In")
             logger.debug(f'{user} successfully logged in')
-            return redirect("/blog/add_blog/")
+            return redirect("/blog")
             # return redirect("/")
             #return render(request, "login.html")
         else:
