@@ -11,23 +11,40 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import re
+import environ
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#load .env and generate a key automatically if one isn't already in .env
+env = environ.Env()
+environ.Env.read_env('halfdoneprojects\.env', overwrite=True)
+if not len(env("DJANGO_SECRET_KEY")):
+    print(os.getcwd())
+    print('generating key')
+    key = get_random_secret_key()
+    with open('halfdoneprojects\.env', 'r') as f:
+        e = f.read()
+    e = re.sub(r'DJANGO_SECRET_KEY=.*', f'DJANGO_SECRET_KEY={key}', e)
+    with open('halfdoneprojects\.env', 'w') as f:
+        f.write(e)
+    os.environ["DJANGO_SECRET_KEY"] = key
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_random_secret_key() #os.getenv('DJANGO_SECRET_KEY') #'django-insecure-j36vlwjw38htny4+sjj7nnqp&m!^u75bmy=(x2d1_b(u84hrm7'
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"] #os.getenv('DJANGO_SECRET_KEY') #'django-insecure-j36vlwjw38htny4+sjj7nnqp&m!^u75bmy=(x2d1_b(u84hrm7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env("DJANGO_DEBUG")
+print(f'DEBUG is on: {DEBUG}')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '170.187.148.159', 'www.halfdoneprojects.com', 'chickendoor.halfdoneprojects.com', 'halfdoneprojects.com']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '170.187.148.159', 'www.halfdoneprojects.com', 'chickendoor.halfdoneprojects.com', 'halfdoneprojects.com']
+ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(' ')
 
 
 # Application definition
