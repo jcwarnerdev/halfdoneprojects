@@ -21,7 +21,9 @@ def blogs(request):
     else:
         return render(request, "blog.html", {'posts':posts})
 
+@login_required(login_url = '/login')
 def search(request):
+    print(request.path)
     if request.method == "POST":
         searched = request.POST['searched']
         blogs = QuillPost.objects.filter(title__contains=searched) # BlogPost.objects.filter(title__contains=searched)
@@ -31,12 +33,14 @@ def search(request):
 
 # @login_required(login_url = '/login')
 def blogs_comments(request, slug):
+    print(request.path)
     post = QuillPost.objects.filter(slug=slug).first() # BlogPost.objects.filter(slug=slug).first()
     comments = Comment.objects.filter(blog=post)
-    if request.method=="POST":
+    if request.method=="POST" and request.path!="/blog/search/":
+        print(request.path)
         user = request.user
         content = request.POST.get('content','')
-        blog_id =request.POST.get('blog_id','')
+        # blog_id =request.POST.get('blog_id','')
         comment = Comment(user = user, content = content, blog=post)
         comment.save()
     return render(request, "blog_comments.html", {'post':post, 'comments':comments})
