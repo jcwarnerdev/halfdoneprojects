@@ -39,7 +39,8 @@
                   Projects
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownProjectLink">
-                  {% if user.is_authenticated %}
+                  {% if user.is_authenticated and user.is_superuser %}
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item {% block edit_project_active %} {% endblock edit_project_active %}" href="/edit_projects/">Edit Projects</a>
                   {% endif %}
                 </div>
@@ -57,7 +58,9 @@
                     Hello {{request.user}}
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    {% if user.is_superuser %}
                     <a class="dropdown-item {% block add_blog_active %} {% endblock add_blog_active %}" href="/blog/add_post/">Add Blog Post</a>
+                    {% endif %}
                     <a class="dropdown-item {% block profileactive %} {% endblock profileactive %}" href="/profile/">Profile</a>
                     <a class="dropdown-item" href="/logout/">Logout</a>
                 {% else %}
