@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
 from .models import QuillPost, Comment
@@ -26,7 +27,8 @@ def search(request):
     print(request.path)
     if request.method == "POST":
         searched = request.POST['searched']
-        posts = QuillPost.objects.filter(title__contains=searched) # BlogPost.objects.filter(title__contains=searched)
+        # posts = QuillPost.objects.filter(title__contains=searched) # BlogPost.objects.filter(title__contains=searched)
+        posts = QuillPost.objects.filter(Q(title__contains=searched) | Q(content__contains=searched)) # BlogPost.objects.filter(title__contains=searched)
         return render(request, "search.html", {'searched':searched, 'posts':posts})
     else:
         return render(request, "search.html", {})
