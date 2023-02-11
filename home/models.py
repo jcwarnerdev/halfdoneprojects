@@ -16,3 +16,10 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
+class Project(models.Model):
+    creator = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False)
+    project_name = models.CharField(max_length=50, blank=False, null=False)
+    project_link = models.URLField(blank=False, null=False)
+
+    def __str__(self):
+        return str(self.project_name)
