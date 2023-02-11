@@ -1,15 +1,17 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
-from .models import *
+from .models import Project, Profile
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm #, BlogPostForm
+from django.forms import modelformset_factory
+from .forms import ProfileForm, ProjectForm #, BlogPostForm
 # from blog.forms import BlogPostForm #ProfileForm, 
 from django.views.generic import UpdateView
 from django.contrib import messages
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 
 # def user_profile(request, myid):
@@ -86,3 +88,18 @@ def Logout(request):
 def Home(request):
     logger.debug(request)
     return render(request, "home.html")
+
+@login_required(login_url = '/login')
+def edit_projects(request):
+    # print('edit projects')
+    ProjectsFormSet = modelformset_factory(Project, form=ProjectForm, extra=1)
+    # print(ProjectsFormSet)
+    if request.method == 'POST' and request.user.is_superuser:
+        formset = ProjectsFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            formset.save()
+    else:
+        # print('getting formset')
+        formset = ProjectsFormSet(queryset=Project.objects.order_by('project_name'))
+        # print(formset)
+    return render(request, 'edit_projects.html', {'formset': formset})

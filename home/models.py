@@ -20,6 +20,8 @@ class Project(models.Model):
     creator = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False)
     project_name = models.CharField(max_length=50, blank=False, null=False)
     project_link = models.URLField(blank=False, null=False)
+    project_rank = models.IntegerField(blank=False, null=False)
+    project_category = models.CharField(max_length=50, blank=False, null=False)
 
     def __str__(self):
         return str(self.project_name)
