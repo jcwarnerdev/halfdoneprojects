@@ -22,7 +22,7 @@ def blogs(request):
     else:
         return render(request, "blog.html", {'posts':posts})
 
-@login_required(login_url = '/login')
+# @login_required(login_url = '/login')
 def search(request):
     print(request.path)
     if request.method == "POST":
