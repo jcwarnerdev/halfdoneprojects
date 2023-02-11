@@ -26,8 +26,8 @@ def search(request):
     print(request.path)
     if request.method == "POST":
         searched = request.POST['searched']
-        blogs = QuillPost.objects.filter(title__contains=searched) # BlogPost.objects.filter(title__contains=searched)
-        return render(request, "search.html", {'searched':searched, 'blogs':blogs})
+        posts = QuillPost.objects.filter(title__contains=searched) # BlogPost.objects.filter(title__contains=searched)
+        return render(request, "search.html", {'searched':searched, 'posts':posts})
     else:
         return render(request, "search.html", {})
 

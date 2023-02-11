@@ -10,14 +10,14 @@
 <div class="container mt-5 mb-3">
   <h1>Results for {{searched}}</h1>
     <div class="row">
-        {% for blog in blogs %}
+        {% for post in posts %}
         <div class="col-lg-4 my-4">
             <div class="card shadow" style="width: 20rem; height: 33rem;">
-                <img src="/media/{{blog.image}}" class="card-img-top" alt="..." height="250px">
+                <img src="/media/{{post.image}}" class="card-img-top" alt="..." height="250px">
                 <div class="card-body">
-                  <h5 class="card-title">{{blog.title}} <br><small>by {{blog.author}}</small></h5>
-                  <p class="card-text">{{blog.content| truncatechars:210}}</p>
-                  <a href="/blog/{{blog.slug}}" class="btn btn-primary">Read More {% if user.is_superuser %}<a href="/delete_blog_post/{{blog.slug}}/" class="btn btn-danger mx-4">Delete Blog</a>{% endif %}</a>
+                  <h5 class="card-title">{{post.title}} <br><small>by {{blog.author}}</small></h5>
+                  <p class="card-text">{{post.content.plain| truncatechars:210}}</p>
+                  <a href="/blog/{{post.slug}}" class="btn btn-primary">Read More {% if user.is_superuser %}<a href="/delete_blog_post/{{post.slug}}/" class="btn btn-danger mx-4">Delete Post</a>{% endif %}</a>
                 </div>
               </div>
         </div>
