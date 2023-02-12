@@ -28,7 +28,7 @@ def search(request):
     if request.method == "POST":
         searched = request.POST['searched']
         # posts = QuillPost.objects.filter(title__contains=searched) # BlogPost.objects.filter(title__contains=searched)
-        posts = QuillPost.objects.filter(Q(title__contains=searched) | Q(content__contains=searched)) # BlogPost.objects.filter(title__contains=searched)
+        posts = QuillPost.objects.filter(Q(title__icontains=searched) | Q(content__icontains=searched)) # BlogPost.objects.filter(title__contains=searched)
         return render(request, "search.html", {'searched':searched, 'posts':posts})
     else:
         return render(request, "search.html", {})
@@ -57,19 +57,24 @@ def Delete_Blog_Post(request, slug):
 
 @login_required(login_url = '/login')
 def add_post(request):
-    if request.method=="POST":
-        form = QuillPostForm(data=request.POST, files=request.FILES) # BlogPostForm(data=request.POST, files=request.FILES)
-        if form.is_valid():
-            blogpost = form.save(commit=False)
-            blogpost.author = request.user
-            blogpost.save()
-            obj = form.instance
-            alert = True
-            # return render(request, "add_post.html", {'obj':obj, 'alert':alert})
-            return redirect("/blog")
+    if request.user.is_superuser:
+        if request.method=="POST":
+            form = QuillPostForm(data=request.POST, files=request.FILES) # BlogPostForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                blogpost = form.save(commit=False)
+                blogpost.author = request.user
+                blogpost.save()
+                obj = form.instance
+                alert = True
+                # return render(request, "add_post.html", {'obj':obj, 'alert':alert})
+                return redirect("/blog")
+        else:
+            form= QuillPostForm() # BlogPostForm()
+        return render(request, "add_post.html", {'form':form})
     else:
-        form= QuillPostForm() # BlogPostForm()
-    return render(request, "add_post.html", {'form':form})
+        print('not authorized to post')
+        form= QuillPostForm()
+        return render(request, "add_post.html", {'form':form})
 
 # @login_required(login_url = '/login')
 # def edit_post(request, slug):

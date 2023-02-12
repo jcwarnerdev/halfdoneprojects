@@ -5,12 +5,19 @@
 {% block css %}
 {% endblock %}
 {% block body %}
-<form action="/edit_project_links/" enctype="multipart/form-data" method="POST"> {% csrf_token %}
-    <div class="container mt-3">
-   {{ form.as_p }}
+<form action="" enctype="multipart/form-data" method="POST"> {% csrf_token %}
+    <div>
+        {% comment %} {{formset}} {% endcomment %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div>
+                {{ form }}
+            </div>
+        {% endfor %}
         <button type="submit" class="btn btn-primary">Update</button>
     </div>
 </form>
+
 {% endblock %}
 {% block js %}
 <script>
