@@ -39,6 +39,7 @@
                   Projects
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownProjectLink">
+                  {% block projectlinks %} {% endblock projectlinks %}
                   {% if user.is_authenticated and user.is_superuser %}
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item {% block edit_project_active %} {% endblock edit_project_active %}" href="/edit_projects/">Edit Projects</a>
