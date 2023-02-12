@@ -49,7 +49,7 @@ def blogs_comments(request, slug):
 
 @login_required(login_url = '/login')
 def Delete_Blog_Post(request, slug):
-    posts = QuillPost.objects.get(slug=slug).first() # BlogPost.objects.get(slug=slug)
+    posts = QuillPost.objects.get(slug=slug) #.first() # BlogPost.objects.get(slug=slug)
     if request.method == "POST":
         posts.delete()
         return redirect('/')

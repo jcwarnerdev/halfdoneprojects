@@ -12,6 +12,7 @@ class Profile(models.Model):
     facebook = models.CharField(max_length=300, blank=True, null=True)
     instagram = models.CharField(max_length=300, blank=True, null=True)
     linkedin = models.CharField(max_length=300, blank=True, null=True)
+    github = models.CharField(max_length=300, blank=True, null=True)
     
     def __str__(self):
         return str(self.user)
