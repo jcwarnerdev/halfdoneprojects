@@ -92,7 +92,7 @@ def Home(request):
 @login_required(login_url = '/login')
 def edit_projects(request):
     # print('edit projects')
-    ProjectsFormSet = modelformset_factory(Project, form=ProjectForm, extra=1)
+    ProjectsFormSet = modelformset_factory(Project, form=ProjectForm, extra=1, can_delete=True)
     # print(ProjectsFormSet)
     if request.method == 'POST' and request.user.is_superuser:
         formset = ProjectsFormSet(request.POST, request.FILES)
