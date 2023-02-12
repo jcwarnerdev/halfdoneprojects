@@ -17,8 +17,8 @@ class Profile(models.Model):
         return str(self.user)
 
 class Project(models.Model):
-    creator = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False)
-    project_name = models.CharField(max_length=50, blank=False, null=False, default='')
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    project_name = models.CharField(max_length=50, blank=False, null=False, default='', unique=True)
     project_link = models.URLField(blank=False, null=False, default='')
     project_rank = models.IntegerField(blank=False, null=False, default=0)
     project_category = models.CharField(max_length=50, blank=False, null=False, default='')

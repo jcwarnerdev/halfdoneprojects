@@ -31,14 +31,16 @@
               <li class="nav-item">
                 <a class="nav-link {% block blogactive %} {% endblock blogactive %}" aria-current="page" href="/blog">Blog</a>
               </li>
-              {% comment %} <li class="nav-item">
-                <a class="nav-link {% block projectsactive %} {% endblock projectsactive %}" aria-current="page" href="/blog">Projects</a>
-              </li> {% endcomment %}
               <div class="dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownProjectLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Projects
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownProjectLink">
+                  {% for project in project_list %}
+                    <div>
+                      <a class="dropdown-item" href="{{ project.project_link }}" target="blank">{{ project.project_name }}</a>
+                    </div>
+                  {% endfor %}
                   {% block projectlinks %} {% endblock projectlinks %}
                   {% if user.is_authenticated and user.is_superuser %}
                   <div class="dropdown-divider"></div>
