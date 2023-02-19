@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
-from .models import Project, Profile
+from .models import Project, Profile, About
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
-from .forms import ProfileForm, ProjectForm #, BlogPostForm
+from .forms import ProfileForm, ProjectForm, AboutForm#, BlogPostForm
 # from blog.forms import BlogPostForm #ProfileForm, 
 from django.views.generic import UpdateView
 from django.contrib import messages
@@ -87,7 +88,27 @@ def Logout(request):
 
 def Home(request):
     logger.debug(request)
-    return render(request, "home.html")
+    about = About.objects.last()
+    return render(request, "home.html", {'about':about})
+
+@login_required(login_url = '/login')
+def add_about(request):
+    if request.user.is_superuser:
+        if request.method=="POST":
+            form = AboutForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                about = form.save(commit=False)
+                about.save()
+                # obj = about.instance
+                # alert = True
+                return redirect("/")
+        else:
+            form= AboutForm() # BlogPostForm()
+        return render(request, "add_about.html", {'form':form})
+    else:
+        print('not authorized to post')
+        form= AboutForm()
+        return render(request, "add_about.html", {'form':form})
 
 @login_required(login_url = '/login')
 def edit_projects(request):
@@ -103,3 +124,24 @@ def edit_projects(request):
         formset = ProjectsFormSet(queryset=Project.objects.order_by('project_name'))
         # print(formset)
     return render(request, 'edit_projects.html', {'formset': formset})
+
+@login_required(login_url = '/login')
+def edit_about(request):
+    # print('edit projects')
+    about = About.objects.first()
+    # print(ProjectsFormSet)
+    if request.method == 'POST' and request.user.is_superuser:
+        about = ProjectsFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            formset.save()
+    else:
+        # print('getting formset')
+        formset = ProjectsFormSet(queryset=Project.objects.order_by('project_name'))
+        # print(formset)
+    return render(request, 'edit_projects.html', {'formset': formset})
+
+class UpdateAboutView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    model = About 
+    template_name = 'edit_about.html'
+    fields = ['id', 'about']

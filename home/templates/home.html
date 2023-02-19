@@ -6,8 +6,12 @@
 
 <div class="container home">
     <h1> Nothing Here Yet </h1>
+    <div> {{ about.about.html | safe }} </div>
+    {% if user.is_authenticated and user.is_superuser %}
+    <small><a href="add_about/" class="edit btn btn-warning">Add About</a></small>
+    <small><a href="edit_about/" class="edit btn btn-warning">Edit About</a></small>
+    {% endif %}
 </div>
-
 
 
 {% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile, Project
+from .models import Profile, Project, About
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -9,4 +9,9 @@ class ProfileForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ('project_rank', 'project_name', 'project_link', 'creator', 'project_category')
+        fields = ('project_rank', 'project_name', 'project_link', 'creator', 'project_category',)
+
+class AboutForm(forms.ModelForm):
+    class Meta:
+        model = About
+        fields = ('about',)

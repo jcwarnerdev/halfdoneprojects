@@ -7,7 +7,7 @@
 {% block body %}
 <form action="" enctype="multipart/form-data" method="POST"> {% csrf_token %}
     <div class="container mt-4">
-        {{ form.as_p }}
+        {{ form.as_p }}        
     <button type="submit" class="btn btn-primary">Update Post</button>
     </div>
 </form>
