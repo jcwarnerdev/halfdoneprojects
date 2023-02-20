@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate,  login, logout
 from .models import Project, Profile, About
+from blog.models import QuillPost
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
@@ -89,7 +90,13 @@ def Logout(request):
 def Home(request):
     logger.debug(request)
     about = About.objects.last()
-    return render(request, "home.html", {'about':about})
+    posts = QuillPost.objects.all()
+    posts = QuillPost.objects.filter().order_by('-dateTime')[:3]
+    if not posts:
+        return redirect("/blog/add_post/")
+    # else:
+        # return render(request, "blog.html", {'posts':posts})
+    return render(request, "home.html", {'about':about, 'posts':posts})
 
 @login_required(login_url = '/login')
 def add_about(request):
