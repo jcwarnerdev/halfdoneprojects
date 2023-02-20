@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block head %}{% include 'django_quill/media.html' %} {{ form.media }} {% endblock %}
+
+{% block title %} Edit About {% endblock %}
+
+{% block css %}
+{% endblock %}
+{% block body %}
+<form action="" enctype="multipart/form-data" method="POST"> {% csrf_token %}
+    <div class="container mt-4">
+        {{ about.as_p }}
+    <button type="submit" class="btn btn-primary">Update About</button>
+    </div>
+</form>
+{% endblock %}

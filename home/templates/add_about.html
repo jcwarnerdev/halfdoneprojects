@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block head %}{% include 'django_quill/media.html' %}{% endblock %}
-{% block title %} Add Post {% endblock %}
-{% block add_blog_active %} active {% endblock add_blog_active %}
+{% block title %} Add About {% endblock %}
+{% block add_about_active %} active {% endblock add_about_active %}
 
 {% block css %}
 {% endblock %}
 {% block body %}
-<form action="/blog/add_post/" enctype="multipart/form-data" method="POST"> {% csrf_token %}
+<form action="/add_about/" enctype="multipart/form-data" method="POST"> {% csrf_token %}
 <div class="container mt-4">
 {{ form.as_p }}
 {% comment %} {{ form.content}} {% endcomment %}
-<button class="btn btn-primary">Add Blog Post</button>
+<button class="btn btn-primary">Add About</button>
 </div>
 </form>
 {% endblock %}
