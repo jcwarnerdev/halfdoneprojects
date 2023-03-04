@@ -33,7 +33,7 @@ background: #212529b8;
             <div class="col-md-4">
                 <div class="profile-img">
                     {% if user.profile.image %}
-                    <img src="{{user.profile.image.url}}" alt="" width="310px" height="270px">
+                    <img src={{ MEDIA_URL }}{{user.profile.image.url}} alt="" width="310px" height="270px">
                     {% endif %}
                 </div>
             </div>

@@ -132,20 +132,20 @@ def edit_projects(request):
         # print(formset)
     return render(request, 'edit_projects.html', {'formset': formset})
 
-@login_required(login_url = '/login')
-def edit_about(request):
-    # print('edit projects')
-    about = About.objects.first()
-    # print(ProjectsFormSet)
-    if request.method == 'POST' and request.user.is_superuser:
-        about = ProjectsFormSet(request.POST, request.FILES)
-        if formset.is_valid():
-            formset.save()
-    else:
-        # print('getting formset')
-        formset = ProjectsFormSet(queryset=Project.objects.order_by('project_name'))
-        # print(formset)
-    return render(request, 'edit_projects.html', {'formset': formset})
+# @login_required(login_url = '/login')
+# def edit_about(request):
+#     # print('edit projects')
+#     about = About.objects.first()
+#     # print(ProjectsFormSet)
+#     if request.method == 'POST' and request.user.is_superuser:
+#         about = ProjectsFormSet(request.POST, request.FILES)
+#         if formset.is_valid():
+#             formset.save()
+#     else:
+#         # print('getting formset')
+#         formset = ProjectsFormSet(queryset=Project.objects.order_by('project_name'))
+#         # print(formset)
+#     return render(request, 'edit_projects.html', {'formset': formset})
 
 class UpdateAboutView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
