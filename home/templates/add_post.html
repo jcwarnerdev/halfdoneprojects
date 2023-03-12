@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block head %}{% include 'django_quill/media.html' %}{% endblock %}
+{% comment %} {% block head %}{% include 'django_quill/media.html' %}{% endblock %} {% endcomment %}
+{% block head %} {{ form.media }} {% endblock %}
 {% block title %} Add Post {% endblock %}
 {% block add_blog_active %} active {% endblock add_blog_active %}
 

@@ -29,7 +29,7 @@ float: right;
             </div>
       </div>
       <br>
-      <img src="/media/{{post.image}}" alt="no image" height="250px" width="500px">
+      <img src={{ MEDIA_URL }}{{post.image}} alt="no image" height="250px" width="500px">
       <br>
       <p>{{post.content.html|safe}}.</p>
       <hr>
