@@ -9,4 +9,4 @@ def media_url(request):
     return({'MEDIA_URL':settings.MEDIA_URL})
 
 def static_url(request):
-    return({'SETTINGS_STATIC_URL':settings.STATIC_URL})
+    return({'STATIC_URL':settings.STATIC_URL})

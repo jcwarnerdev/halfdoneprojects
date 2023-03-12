@@ -57,8 +57,8 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"] #os.getenv('DJANGO_SECRET_KEY') #'django-insecure-j36vlwjw38htny4+sjj7nnqp&m!^u75bmy=(x2d1_b(u84hrm7'
-# SECRET_KEY = "8ubzz@(s3auh65v%lik0ubt)ynurd5&7ufaq^z_w3ieu4nfy@_"
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"] 
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -69,6 +69,16 @@ print(f'DEBUG is on: {DEBUG}')
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '170.187.148.159', 'www.halfdoneprojects.com', 'chickendoor.halfdoneprojects.com', 'halfdoneprojects.com']
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(' ')
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+    '170.187.148.159',
+    '76.100.105.82',
+]
+
+DEBUG_TOOLBAR_CONFIG = {
+    # Toolbar options
+    'RENDER_PANELS': True,
+}
 
 # Application definition
 
@@ -80,18 +90,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django_extensions',
     'django_quill',
     'storages',
     'home',
     'blog',
+    # 'silk',
+    # 'debug_toolbar',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'silk.middleware.SilkyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    # 'silk.middleware.SilkyMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -172,7 +188,7 @@ if USE_S3:
     AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
     AWS_DEFAULT_ACL = None
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'no-cache'} # {'CacheControl': 'max-age=86400'}
     # s3 static settings
     STATIC_LOCATION = 'static'
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
@@ -222,6 +238,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# SILKY_PYTHON_PROFILER = True
 
 LOGGING = {
     'version': 1,
