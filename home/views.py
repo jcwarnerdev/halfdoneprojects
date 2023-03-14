@@ -20,8 +20,10 @@ logger = logging.getLogger(__name__)
 #     post = BlogPost.objects.filter(id=myid)
 #     return render(request, "user_profile.html", {'post':post})
 
-def UserProfile(request):
-    return render(request, "profile.html")
+def UserProfile(request, id):
+    profile = Profile.objects.filter(id=id).first()
+    logger.debug(f'profile info {profile}')
+    return render(request, "profile.html", {'profile':profile})
 
 def edit_profile(request):
     try:

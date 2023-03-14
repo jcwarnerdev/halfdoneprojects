@@ -74,7 +74,7 @@
                     {% if user.is_superuser %}
                     <a class="dropdown-item {% block add_blog_active %} {% endblock add_blog_active %}" href="/blog/add_post/">Add Blog Post</a>
                     {% endif %}
-                    <a class="dropdown-item {% block profileactive %} {% endblock profileactive %}" href="/profile/">Profile</a>
+                    <a class="dropdown-item {% block profileactive %} {% endblock profileactive %}" href="/profile/{{request.user.id}}">Profile</a>
                     <a class="dropdown-item" href="/logout/">Logout</a>
                 {% else %}
                 <li class="nav-item">
