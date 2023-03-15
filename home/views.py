@@ -36,7 +36,9 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
             alert = True
-            return render(request, "edit_profile.html", {'alert':alert})
+            # profile = request.user.profile
+            # return render(request, "profile.html", {'profile':profile})
+            return redirect(f'/profile/{str(request.user.id)}')
     else:
         form=ProfileForm(instance=profile)
     return render(request, "edit_profile.html", {'form':form})
