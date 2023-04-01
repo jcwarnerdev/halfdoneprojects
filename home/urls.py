@@ -8,7 +8,7 @@ urlpatterns = [
     # path("profile/", home_views.UserProfile, name="profile"),
     # path("profile/<str:user>", home_views.UserProfile, name="profile"),
     path("profile/<int:id>/", home_views.UserProfile, name="profile"),
-    path("edit_profile/", home_views.edit_profile, name="edit_profile"),
+    path("edit_profile/<int:id>/", home_views.edit_profile, name="edit_profile"),
 
 #    projects
     path("edit_projects/", home_views.edit_projects, name="edit_projects"),

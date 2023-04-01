@@ -25,9 +25,11 @@ def UserProfile(request, id):
     logger.debug(f'profile info {profile}')
     return render(request, "profile.html", {'profile':profile})
 
-def edit_profile(request):
+@login_required(login_url = '/login')
+def edit_profile(request, id):
     try:
-        profile = request.user.profile
+        # profile = request.user.profile
+        profile = Profile.objects.filter(id=id).first()
     except Profile.DoesNotExist:
         # profile = Profile(user=request.user)
         Profile.objects.create(user=request.user)
