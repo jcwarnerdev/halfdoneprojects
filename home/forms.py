@@ -4,7 +4,9 @@ from .models import Profile, Project, About
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('phone_no', 'bio', 'facebook', 'instagram', 'linkedin', 'github', 'image', )
+        fields = ('user_full_name_public', 'user_email_public', 'image', 'image_public', 'bio', 'bio_public', 
+    'phone_no', 'phone_no_public', 'facebook', 'facebook_public', 'instagram', 'instagram_public', 
+    'linkedin', 'linkedin_public', 'github', 'github_public',)
      
 class ProjectForm(forms.ModelForm):
     class Meta:

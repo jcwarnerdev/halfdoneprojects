@@ -20,12 +20,16 @@ logger = logging.getLogger(__name__)
 #     post = BlogPost.objects.filter(id=myid)
 #     return render(request, "user_profile.html", {'post':post})
 
-def UserProfile(request):
-    return render(request, "profile.html")
+def UserProfile(request, id):
+    profile = Profile.objects.filter(id=id).first()
+    logger.debug(f'profile info {profile}')
+    return render(request, "profile.html", {'profile':profile})
 
-def edit_profile(request):
+@login_required(login_url = '/login')
+def edit_profile(request, id):
     try:
-        profile = request.user.profile
+        # profile = request.user.profile
+        profile = Profile.objects.filter(id=id).first()
     except Profile.DoesNotExist:
         # profile = Profile(user=request.user)
         Profile.objects.create(user=request.user)
@@ -34,7 +38,9 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
             alert = True
-            return render(request, "edit_profile.html", {'alert':alert})
+            # profile = request.user.profile
+            # return render(request, "profile.html", {'profile':profile})
+            return redirect(f'/profile/{str(request.user.id)}')
     else:
         form=ProfileForm(instance=profile)
     return render(request, "edit_profile.html", {'form':form})
@@ -91,7 +97,7 @@ def Home(request):
     logger.debug(request)
     about = About.objects.last()
     posts = QuillPost.objects.all()
-    posts = QuillPost.objects.filter().order_by('-dateTime')[:3]
+    posts = QuillPost.objects.filter().order_by('-publish_dt')[:3]
     if not posts:
         return redirect("/blog/add_post/")
     # else:

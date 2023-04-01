@@ -18,14 +18,14 @@ float: right;
                   alt="image">
             {% endif %}
             <div class="media-body">
-                  <h5 class="mt-0"><a href="/user_profile/{{post.author.id}}/">{{post.author}}
+                  <h5 class="mt-0"><a href="/profile/{{post.author.id}}/">{{post.author}}
                               {% if user.is_authenticated %}
                               {% if user.id == post.author.id %}
                               <small><a href="/blog/edit_post/{{post.slug}}/" class="edit btn btn-warning">Edit Blog Post</a></small>
                               {% endif %}
                               {% endif %}
                         </a></h5>
-                  {{post.dateTime}}
+                  published: {{post.publish_dt}} | last modified: {{post.updated_dt}}
             </div>
       </div>
       <br>

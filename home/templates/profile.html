@@ -28,12 +28,13 @@ background: #212529b8;
 {% endblock %}
 {% block body %}
 
+
 <div class="container profile">
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    {% if user.profile.image %}
-                    <img src={{ MEDIA_URL }}{{user.profile.image.url}} alt="" width="310px" height="270px">
+                    {% if profile.image %}
+                    <img src={{profile.image.url}} alt="" width="310px" height="270px">
                     {% endif %}
                 </div>
             </div>
@@ -46,77 +47,93 @@ background: #212529b8;
                                 <label>Username:</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{user}}</p>
+                                <p>{{profile.user}}</p>
                             </div>
                         </div>
+                        {% if profile.user_full_name_public %}
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Full Name:</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{user.get_full_name}}</p>
+                                <p>{{profile.user.get_full_name}}</p>
                             </div>
                         </div>
+                        {% endif %}
+                        {% if profile.user_email_public %}
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Email:</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{user.email}}</p>
+                                <p>{{profile.user.email}}</p>
                             </div>
                         </div>
-                        {% if user.profile.phone_no %}
+                        {% endif %}
+                        {% if profile.phone_no_public and profile.phone_no%}
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Phone Number:</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{user.profile.phone_no}}</p>
+                                <p>{{profile.phone_no}}</p>
                             </div>
                         </div>
                         {% endif %}
-                        {% if user.profile.bio %}
+                        {% if profile.bio and profile.bio_public%}
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Bio:</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{user.profile.bio}}</p>
+                                <p>{{profile.bio}}</p>
                             </div>
                         </div>
                         {% endif %}
-                        {% if user.profile.linkedin %}
+                        {% if profile.linkedin and profile.linkedin_public %}
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Linkedin:</label>
                             </div>
                             <div class="col-md-6">
-                                <p><a href="{{user.profile.linkedin}}">{{user.profile.linkedin}}</a></p>
+                                <p><a href="{{profile.linkedin}}">{{profile.linkedin}}</a></p>
                             </div>
                         </div>
                         {% endif %}
-                        {% if user.profile.instagram %}
+                        {% if profile.instagram and profile.instagram_public%}
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Instagram:</label>
                             </div>
                             <div class="col-md-6">
-                                <p><a href="{{user.profile.instagram}}">{{user.profile.instagram}}</a></p>
+                                <p><a href="{{profile.instagram}}">{{profile.instagram}}</a></p>
                             </div>
                         </div>
                         {% endif %}
-                        {% if user.profile.facebook %}
+                        {% if profile.facebook and profile.facebook_public%}
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Facebook:</label>
                             </div>
                             <div class="col-md-6">
-                                <p><a href="{{user.profile.facebook}}">{{user.profile.facebook}}</a></p>
+                                <p><a href="{{profile.facebook}}" target="blank">{{profile.facebook}}</a></p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if profile.github and profile.github_public %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Github:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><a href="{{profile.github}}">{{profile.github}}</a></p>
                             </div>
                         </div>
                         {% endif %}
                     </div>
-                    <a href="/edit_profile/" class="btn btn-secondary">Edit Profile</a>
+                    {% if request.user == profile.user %}
+                    <a href="/edit_profile/{{profile.user.id}}" class="btn btn-secondary">Edit Profile</a>
+                    {% endif %}
                 </div>
             </div>
 </div>

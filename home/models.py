@@ -4,17 +4,29 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.timezone import now
 
-    
+def json_default_vals():
+    return
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+    user_full_name_public = models.BooleanField(default=False)
+    user_email_public = models.BooleanField(default=False)
     image = models.ImageField(upload_to="profile_pics", blank=True, null=True)
+    image_public = models.BooleanField(default=False)
     bio = models.TextField(blank=True, null=True)
+    bio_public = models.BooleanField(default=False)
     phone_no = models.IntegerField(blank=True, null=True)
+    phone_no_public = models.BooleanField(default=False)
     facebook = models.CharField(max_length=300, blank=True, null=True)
+    facebook_public = models.BooleanField(default=False)
     instagram = models.CharField(max_length=300, blank=True, null=True)
+    instagram_public = models.BooleanField(default=False)
     linkedin = models.CharField(max_length=300, blank=True, null=True)
+    linkedin_public = models.BooleanField(default=False)
     github = models.CharField(max_length=300, blank=True, null=True)
-    
+    github_public = models.BooleanField(default=False)
+
+
     def __str__(self):
         return str(self.user)
 
