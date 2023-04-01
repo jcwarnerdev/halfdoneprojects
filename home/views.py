@@ -95,7 +95,7 @@ def Home(request):
     logger.debug(request)
     about = About.objects.last()
     posts = QuillPost.objects.all()
-    posts = QuillPost.objects.filter().order_by('-dateTime')[:3]
+    posts = QuillPost.objects.filter().order_by('-publish_dt')[:3]
     if not posts:
         return redirect("/blog/add_post/")
     # else:

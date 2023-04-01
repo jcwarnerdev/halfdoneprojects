@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 def blogs(request):
     posts = QuillPost.objects.all()
-    posts = QuillPost.objects.filter().order_by('-dateTime')
+    posts = QuillPost.objects.filter().order_by('-publish_dt')
     if not posts:
         return redirect("/blog/add_post/")
     else:
@@ -77,7 +77,7 @@ class UpdatePostView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = QuillPost 
     template_name = 'edit_blog_post.html'
-    fields = ['title', 'slug', 'content', 'image']
+    fields = ['title', 'content', 'image']
 
     # def get_queryset(self, *args, **kwargs):
     #     return super().get_queryset(*args, **kwargs).filter(
