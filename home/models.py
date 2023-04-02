@@ -25,6 +25,8 @@ class Profile(models.Model):
     linkedin_public = models.BooleanField(default=False)
     github = models.CharField(max_length=300, blank=True, null=True)
     github_public = models.BooleanField(default=False)
+    youtube = models.CharField(max_length=300, blank=True, null=True)
+    youtube_public = models.BooleanField(default=False)
 
 
     def __str__(self):
