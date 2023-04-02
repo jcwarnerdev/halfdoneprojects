@@ -6,7 +6,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('user_full_name_public', 'user_email_public', 'image', 'image_public', 'bio', 'bio_public', 
     'phone_no', 'phone_no_public', 'facebook', 'facebook_public', 'instagram', 'instagram_public', 
-    'linkedin', 'linkedin_public', 'github', 'github_public',)
+    'linkedin', 'linkedin_public', 'github', 'github_public', 'youtube', 'youtube_public',)
      
 class ProjectForm(forms.ModelForm):
     class Meta:
