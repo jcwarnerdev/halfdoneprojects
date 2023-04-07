@@ -130,6 +130,16 @@ background: #212529b8;
                             </div>
                         </div>
                         {% endif %}
+                        {% if profile.youtube and profile.youtube_public %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>YouTube:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><a href="{{profile.youtube}}">{{profile.youtube}}</a></p>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                     {% if request.user == profile.user %}
                     <a href="/edit_profile/{{profile.user.id}}" class="btn btn-secondary">Edit Profile</a>
