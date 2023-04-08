@@ -40,8 +40,8 @@
               <li class="nav-item">
                 <a class="nav-link {% block blogactive %} {% endblock blogactive %}" aria-current="page" href="/blog">Blog</a>
               </li>
-              <div class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownProjectLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownProjectLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Projects
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownProjectLink">
@@ -65,8 +65,8 @@
             </form>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               {% if user.is_authenticated %}
-              <div class="dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Hello {{request.user}}
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
