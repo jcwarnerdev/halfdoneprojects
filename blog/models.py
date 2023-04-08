@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.text import slugify
 from django_quill.fields import QuillField
+from taggit.managers import TaggableManager
 
 class QuillPost(models.Model):
     title = models.CharField(max_length=255)
@@ -12,6 +13,7 @@ class QuillPost(models.Model):
     slug = models.SlugField(max_length=100, blank=True, null=True)
     content = QuillField()
     image = models.ImageField(upload_to="blog_pics", blank=True, null=True)
+    tags = TaggableManager()
     # dateTime = models.DateTimeField(auto_now_add=True)
     publish_dt = models.DateTimeField(auto_now_add=True)
     updated_dt = models.DateTimeField(auto_now=True)

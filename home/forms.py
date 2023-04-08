@@ -11,7 +11,7 @@ class ProfileForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ('project_rank', 'project_name', 'project_link', 'creator', 'project_category',)
+        fields = ('project_rank', 'project_name', 'project_link', 'creator', 'project_category', 'project_tags')
 
 class AboutForm(forms.ModelForm):
     class Meta:

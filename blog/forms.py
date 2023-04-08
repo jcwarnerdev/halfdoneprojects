@@ -6,5 +6,5 @@ class QuillPostForm(forms.ModelForm):
     class Meta:
         model = QuillPost
         fields = (
-            'title', 'image', 'content', 
+            'title', 'image', 'content', 'tags'
         )

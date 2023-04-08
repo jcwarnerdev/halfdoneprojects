@@ -61,6 +61,7 @@ def add_post(request):
                 blogpost = form.save(commit=False)
                 blogpost.author = request.user
                 blogpost.save()
+                form.save_m2m()
                 obj = form.instance
                 alert = True
                 return redirect("/blog")
@@ -77,7 +78,7 @@ class UpdatePostView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     model = QuillPost 
     template_name = 'edit_blog_post.html'
-    fields = ['title', 'content', 'image']
+    fields = ['title', 'image', 'content', 'tags']
 
     # def get_queryset(self, *args, **kwargs):
     #     return super().get_queryset(*args, **kwargs).filter(
