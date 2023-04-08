@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django_extensions',
     'django_quill',
+    'taggit',
     'storages',
     'home',
     'blog',

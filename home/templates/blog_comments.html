@@ -26,10 +26,15 @@ float: right;
                               {% endif %}
                         </a></h5>
                   published: {{post.publish_dt}} | last modified: {{post.updated_dt}}
+                  <div> 
+                  {% for post_tag in post.tags.all %} 
+                        <span class="badge bg-secondary">{{post_tag}}</span>
+                  {% endfor %} 
+                  </div>
             </div>
       </div>
       <br>
-      <img src={{ MEDIA_URL }}{{post.image}} alt="no image" height="250px" width="500px">
+      <img class="figure-img img-fluid rounded" src={{ MEDIA_URL }}{{post.image}} alt="no image" height="250px" width="500px">
       <br>
       <p>{{post.content.html|safe}}.</p>
       <hr>

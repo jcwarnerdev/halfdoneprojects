@@ -3,6 +3,7 @@ from django_quill.fields import QuillField
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.timezone import now
+from taggit.managers import TaggableManager
 
 def json_default_vals():
     return
@@ -38,6 +39,7 @@ class Project(models.Model):
     project_link = models.URLField(blank=False, null=False, default='')
     project_rank = models.IntegerField(blank=False, null=False, default=0)
     project_category = models.CharField(max_length=50, blank=False, null=False, default='')
+    project_tags = TaggableManager()
 
     def __str__(self):
         return str(self.project_name)
