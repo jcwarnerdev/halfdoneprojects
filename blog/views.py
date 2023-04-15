@@ -35,14 +35,17 @@ def search(request):
 def blogs_comments(request, slug):
     print(request.path)
     post = QuillPost.objects.filter(slug=slug).first()
-    comments = Comment.objects.filter(blog=post)
-    if request.method=="POST" and request.path!="/blog/search/":
-        print(request.path)
-        user = request.user
-        content = request.POST.get('content','')
-        comment = Comment(user = user, content = content, blog=post)
-        comment.save()
-    return render(request, "blog_comments.html", {'post':post, 'comments':comments})
+    if post != None:
+        comments = Comment.objects.filter(blog=post)
+        if request.method=="POST" and request.path!="/blog/search/":
+            print(request.path)
+            user = request.user
+            content = request.POST.get('content','')
+            comment = Comment(user = user, content = content, blog=post)
+            comment.save()
+        return render(request, "blog_comments.html", {'post':post, 'comments':comments})
+    else:
+        return redirect('/')
 
 @login_required(login_url = '/login')
 def Delete_Blog_Post(request, slug):
