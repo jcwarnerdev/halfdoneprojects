@@ -36,7 +36,8 @@ float: right;
       <br>
       <img class="figure-img img-fluid rounded" src={{ MEDIA_URL }}{{post.image}} alt="no image" height="250px" width="500px">
       <br>
-      <p>{{post.content.html|safe}}.</p>
+      <p> {{ post }} </p>
+      <p>{{post.content.html|safe}}</p>
       <hr>
       {% if user.is_authenticated %}
       <div class="container">
